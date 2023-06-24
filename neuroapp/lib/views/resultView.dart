@@ -1,10 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:neuroapp/views/timerView.dart';
 
-class ResultView extends StatelessWidget {
+class ResultView extends StatefulWidget {
   ResultView({Key? key}) : super(key: key);
-  var progress = 0.65;
+
+  @override
+  _ResultViewState createState() => _ResultViewState();
+}
+
+class _ResultViewState extends State<ResultView>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  var progress = 0.6;
   var seconds = 20;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+
+    // Set up a listener to update the progress value when animation value changes
+    _animationController.addListener(() {
+      setState(() {
+        progress = _animationController.value;
+      });
+    });
+
+    // Start the animation with the desired value
+    _animationController.animateTo(progress);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,22 +67,58 @@ class ResultView extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     Transform.scale(
-                        scale: 5,
-                        child: CircularProgressIndicator(
-                          value: progress,
-                          strokeWidth: 5,
-                        )),
-                    Text(
-                      '${(progress * 100)}%',
-                      style: TextStyle(fontSize: 30),
+                      scale: 5,
+                      child: CircularProgressIndicator(
+                        value: progress,
+                        strokeWidth: 5,
+                      ),
                     ),
+                    Text('Avg:\n',
+                        style: TextStyle(
+                            fontSize: 22, fontStyle: FontStyle.italic)),
+                    Text('\n${(progress * 100).toStringAsFixed(0)}%',
+                        style: TextStyle(
+                            fontSize: 32,
+                            color: Theme.of(context).colorScheme.primary)),
                   ],
                 ),
               ),
             ),
-            Text(
-              'Duration: ${seconds} sec',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Focus:',
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
+                    ),
+                    Text(
+                      'Timer:',
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: EdgeInsets.all(32),
+                    child: Column(
+                      children: [
+                        Text(
+                          '${(progress * 100).toStringAsFixed(0)}%',
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w200),
+                        ),
+                        Text(
+                          '$seconds s',
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w200),
+                        ),
+                      ],
+                    ))
+              ],
             ),
             Padding(
               padding: EdgeInsets.all(33.0),
@@ -57,7 +126,7 @@ class ResultView extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Focus again'),
+                child: Text('Go Again', style: TextStyle(fontSize: 36)),
               ),
             ),
           ],
