@@ -38,6 +38,7 @@ dependencies:
   flutter_gen: ^5.3.1
   vibration: ^1.7.5
   audioplayers: ^4.1.0
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:

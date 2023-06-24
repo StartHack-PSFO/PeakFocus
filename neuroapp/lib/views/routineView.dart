@@ -1,35 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:neuroapp/views/data_controller.dart';
 import 'package:neuroapp/views/resultView.dart';
 
-class RoutineView extends StatefulWidget {
-  const RoutineView({Key? key}) : super(key: key);
+class RoutineView extends StatelessWidget {
+  // double _progress = 0.42; // Set your initial percentage value here
+  // bool _isMuted = false; // Track the mute state
+  // bool _canVibrate = false; // Track the mute state
 
-  @override
-  _RoutineViewState createState() => _RoutineViewState();
-}
+  // void _toggleMute() {
+  //   setState(() {
+  //     _isMuted = !_isMuted;
+  //   });
 
-class _RoutineViewState extends State<RoutineView> {
-  double _progress = 0.42; // Set your initial percentage value here
-  bool _isMuted = false; // Track the mute state
-  bool _canVibrate = false; // Track the mute state
+  //   // Call your service here with the _isMuted value
+  //   // For example: _myService.setMute(_isMuted);
+  // }
 
-  void _toggleMute() {
-    setState(() {
-      _isMuted = !_isMuted;
-    });
+  // void _toggleVibrate() {
+  //   setState(() {
+  //     _canVibrate = !_canVibrate;
+  //   });
 
-    // Call your service here with the _isMuted value
-    // For example: _myService.setMute(_isMuted);
-  }
-
-  void _toggleVibrate() {
-    setState(() {
-      _canVibrate = !_canVibrate;
-    });
-
-    // Call your service here with the _isMuted value
-    // For example: _myService.setMute(_isMuted);
-  }
+  //   // Call your service here with the _isMuted value
+  //   // For example: _myService.setMute(_isMuted);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -57,23 +52,30 @@ class _RoutineViewState extends State<RoutineView> {
                       height: 100.0, // Custom height for the progress bar
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16.0),
-                        child: LinearProgressIndicator(
-                          value: _progress,
-                        ),
+                        child: GetBuilder<DataController>(
+                            id: 'brainDataIndicator',
+                            builder: (_) {
+                              return LinearProgressIndicator(
+                                value: DataController.to.brainData,
+                              );
+                            }),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text('$_progress%'),
-                  ),
+                  GetBuilder<DataController>(
+                      id: 'brainDataIndicator',
+                      builder: (_) {
+                        return Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Text('${DataController.to.brainData}%'),
+                        );
+                      }),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              ResultView(),
+                          builder: (context) => ResultView(),
                         ),
                       );
                     },
@@ -86,48 +88,54 @@ class _RoutineViewState extends State<RoutineView> {
           Positioned(
             top: 32.0,
             right: 16.0,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 70.0,
-                  width: 70.0,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        50.0), // Set the border radius for rounded corners
-                    child: Container(
-                      // color: Theme.of(context).colorScheme.tertiary,
-                      child: TextButton(
-                        onPressed: _toggleMute,
-                        child: Icon(
-                          _isMuted ? Icons.volume_off : Icons.volume_up,
-                          size: 42.0, // Set the size of the icon
+            child: GetBuilder<DataController>(
+                id: 'controlColumn',
+                builder: (_) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 70.0,
+                        width: 70.0,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                              50.0), // Set the border radius for rounded corners
+                          child: Container(
+                            // color: Theme.of(context).colorScheme.tertiary,
+                            child: TextButton(
+                              onPressed: DataController.to.toggleMute,
+                              child: Icon(
+                                DataController.to.isMuted
+                                    ? Icons.volume_off
+                                    : Icons.volume_up,
+                                size: 42.0, // Set the size of the icon
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 70.0,
-                  width: 70.0,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        50.0), // Set the border radius for rounded corners
-                    child: Container(
-                      // color: Theme.of(context).colorScheme.tertiary,
-                      child: TextButton(
-                        onPressed: _toggleVibrate,
-                        child: Icon(
-                          _canVibrate
-                              ? Icons.vibration
-                              : Icons.phone_android_rounded,
-                          size: 42.0, // Set the size of the icon
+                      SizedBox(
+                        height: 70.0,
+                        width: 70.0,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                              50.0), // Set the border radius for rounded corners
+                          child: Container(
+                            // color: Theme.of(context).colorScheme.tertiary,
+                            child: TextButton(
+                              onPressed: DataController.to.toggleVibrate,
+                              child: Icon(
+                                DataController.to.canVibrate
+                                    ? Icons.vibration
+                                    : Icons.phone_android_rounded,
+                                size: 42.0, // Set the size of the icon
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                    ],
+                  );
+                }),
           ),
         ],
       ),
