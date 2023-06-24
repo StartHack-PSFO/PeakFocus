@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neuroapp/views/resultView.dart';
 
 class RoutineView extends StatefulWidget {
   const RoutineView({Key? key}) : super(key: key);
@@ -33,9 +34,13 @@ class _RoutineViewState extends State<RoutineView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text('Routine View'),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AppBar(
+          title: const Text(
+            "Neuro Routine Trainer",
+          ),
+        ),
       ),
       body: Stack(
         children: [
@@ -61,6 +66,18 @@ class _RoutineViewState extends State<RoutineView> {
                   Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text('$_progress%'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ResultView(),
+                        ),
+                      );
+                    },
+                    child: const Text('See results'),
                   ),
                 ],
               ),
