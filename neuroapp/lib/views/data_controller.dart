@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:get/get.dart';
+import 'package:neuroapp/services/soundService.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -19,6 +20,8 @@ class DataController extends GetxController {
   bool isMuted = false;
   bool canVibrate = false;
 
+  bool showOverlay = true;
+
   @override
   void onReady() {
     // TODO: implement onReady
@@ -26,14 +29,42 @@ class DataController extends GetxController {
     super.onReady();
   }
 
+  Future<void> hideOverlay() async {
+    //hide iverlay after 5 seconds
+    await Future.delayed(const Duration(seconds: 2), () {
+      showOverlay = false;
+      update(['stack']);
+    });
+  }
+
+  void soundManager() async {
+    showOverlay = true;
+    await hideOverlay();
+    if (!isMuted) {
+      SoundService.playSound('bleep-sound.mp3');
+    }
+    if (isMuted) {
+      SoundService.stopSound();
+    }
+  }
+
   void toggleMute() {
     isMuted = !isMuted;
+    if (isMuted) {
+      SoundService.stopSound();
+    } else {
+      soundManager();
+    }
     update(['controlColumn']);
   }
 
   void toggleVibrate() {
     canVibrate = !canVibrate;
     update(['controlColumn']);
+  }
+
+  void stopSound() {
+    SoundService.stopSound();
   }
 
   void getData() async {
@@ -54,6 +85,7 @@ class DataController extends GetxController {
 
           // if (json != '') {
           brainData = json * 1.0;
+          SoundService.setVolume(brainData);
           update(['brainDataIndicator']);
           // }
         } catch (e) {
