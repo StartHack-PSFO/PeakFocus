@@ -3,6 +3,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:neuroapp/views/routineView.dart';
 
+import '../services/soundService.dart';
+
 class DelayView extends StatefulWidget {
   final int delay;
 
@@ -36,7 +38,7 @@ class _DelayViewState extends State<DelayView> {
           _countdown--;
         } else {
           timer.cancel();
-          _playSound();
+          SoundService.playSound('bleep-sound.mp3', 2);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -46,18 +48,6 @@ class _DelayViewState extends State<DelayView> {
         }
       });
     });
-  }
-
-  void _playSound() async {
-    try {
-      final player = AudioPlayer();
-      await player.play(AssetSource('bleep-sound.mp3'));
-      Timer(Duration(seconds: 2), () {
-        player.stop();
-      });
-    } catch (e) {
-      print('Failed to play sound: $e');
-    }
   }
 
   @override
