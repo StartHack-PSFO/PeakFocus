@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:neuroapp/views/delayView.dart';
+import 'package:neuroapp/views/routineView.dart';
 
 class TimerView extends StatefulWidget {
   const TimerView({Key? key}) : super(key: key);
@@ -98,13 +99,22 @@ class _TimerViewState extends State<TimerView> {
                   padding: EdgeInsets.all(maxWidth * 0.1),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              DelayView(delay: _selectedDelay),
-                        ),
-                      );
+                      if (_selectedDelay > 0) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                DelayView(delay: _selectedDelay),
+                          ),
+                        );
+                      } else {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RoutineView(),
+                          ),
+                        );
+                      }
                     },
                     child: const Text('Start Routine', style: TextStyle(fontSize: 20)),
                   ),
