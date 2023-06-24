@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:neuroapp/views/delayView.dart';
+import 'package:neuroapp/views/routineView.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -132,13 +133,22 @@ class _HomeViewState extends State<HomeView> {
                   padding: EdgeInsets.all(maxWidth * 0.05), // Responsive margin
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              DelayView(delay: _selectedDelay),
-                        ),
-                      );
+                      if (_selectedDelay > 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                DelayView(delay: _selectedDelay),
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RoutineView(),
+                          ),
+                        );
+                      }
                     },
                     child: const Text('Start Routine Training'),
                   ),

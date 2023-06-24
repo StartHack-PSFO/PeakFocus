@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:neuroapp/services/soundService.dart';
+import 'package:neuroapp/services/vibrationService.dart';
 import 'package:neuroapp/views/data_controller.dart';
 import 'package:neuroapp/views/resultView.dart';
 
@@ -25,6 +27,11 @@ class RoutineView extends StatelessWidget {
   //   // Call your service here with the _isMuted value
   //   // For example: _myService.setMute(_isMuted);
   // }
+
+  RoutineView() {
+    SoundService.playSoundAndStopAfterDelay('bleep-sound.mp3', 1);
+    VibrationService.vibrateForDuration(duration: 1);
+  }
 
   @override
   Widget build(BuildContext context) {
