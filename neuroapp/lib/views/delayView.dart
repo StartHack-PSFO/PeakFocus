@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:neuroapp/views/routineView.dart';
 
@@ -35,6 +36,7 @@ class _DelayViewState extends State<DelayView> {
           _countdown--;
         } else {
           timer.cancel();
+          _playSound();
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -46,13 +48,25 @@ class _DelayViewState extends State<DelayView> {
     });
   }
 
+  void _playSound() async {
+    try {
+      final player = AudioPlayer();
+      await player.play(AssetSource('bleep-sound.mp3'));
+      Timer(Duration(seconds: 2), () {
+        player.stop();
+      });
+    } catch (e) {
+      print('Failed to play sound: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Text(
-          'Countdown: $_countdown',
-          style: TextStyle(fontSize: 18),
+          '$_countdown',
+          style: TextStyle(fontSize: 36),
         ),
       ),
     );
