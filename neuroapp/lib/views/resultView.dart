@@ -89,42 +89,42 @@ class _ResultViewState extends State<ResultView>
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Focus:',
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
-                    ),
-                    Text(
-                      'Timer:',
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
-                    ),
-                  ],
-                ),
-                Padding(
-                    padding: EdgeInsets.all(32),
-                    child: Column(
-                      children: [
-                        Text(
-                          '${(progress * 100).toStringAsFixed(0)}%',
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.w200),
-                        ),
-                        Text(
-                          '$seconds s',
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.w200),
-                        ),
-                      ],
-                    ))
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Column(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         Text(
+            //           'Focus:',
+            //           style:
+            //               TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
+            //         ),
+            //         Text(
+            //           'Timer:',
+            //           style:
+            //               TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
+            //         ),
+            //       ],
+            //     ),
+            //     Padding(
+            //         padding: EdgeInsets.all(32),
+            //         child: Column(
+            //           children: [
+            //             Text(
+            //               '${(progress * 100).toStringAsFixed(0)}%',
+            //               style: TextStyle(
+            //                   fontSize: 22, fontWeight: FontWeight.w200),
+            //             ),
+            //             Text(
+            //               '$seconds s',
+            //               style: TextStyle(
+            //                   fontSize: 22, fontWeight: FontWeight.w200),
+            //             ),
+            //           ],
+            //         ))
+            //   ],
+            // ),
             Padding(
               padding: EdgeInsets.all(33.0),
               child: ElevatedButton(
