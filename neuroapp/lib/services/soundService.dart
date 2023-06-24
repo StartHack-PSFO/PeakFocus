@@ -3,6 +3,7 @@ import 'dart:async';
 
 class SoundService {
   static final AudioPlayer _audioPlayer = AudioPlayer();
+  static double _volume = 1.0;
 
   static Future<void> playSound(String soundPath, int stopAfterDelay) async {
     try {
@@ -17,5 +18,15 @@ class SoundService {
 
   static void stopSound() {
     _audioPlayer.stop();
+  }
+
+  static void increaseVolume(double increment) {
+    _volume = (_volume + increment).clamp(0.0, 1.0);
+    _audioPlayer.setVolume(_volume);
+  }
+
+  static void decreaseVolume(double decrement) {
+    _volume = (_volume - decrement).clamp(0.0, 1.0);
+    _audioPlayer.setVolume(_volume);
   }
 }
