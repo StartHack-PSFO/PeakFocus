@@ -10,7 +10,6 @@ class LoadingView extends StatefulWidget {
 }
 
 class _LoadingViewState extends State<LoadingView> {
-
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -21,7 +20,8 @@ class _LoadingViewState extends State<LoadingView> {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [GestureDetector(
+            children: [
+              GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
@@ -32,16 +32,22 @@ class _LoadingViewState extends State<LoadingView> {
                 },
                 child: SizedBox(
                   width: screenWidth * 0.8,
-                  child: Image.asset(
-                    'assets/Logo@4.png',
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: 'mainLogo',
+                    child: Image.asset(
+                      'assets/Logo@4.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
               const Padding(
                 padding: EdgeInsets.only(bottom: 40),
               ),
-              const Text('Click to Start', style: TextStyle(fontSize: 24),),
+              const Text(
+                'Click to Start',
+                style: TextStyle(fontSize: 24),
+              ),
             ],
           ),
         ),

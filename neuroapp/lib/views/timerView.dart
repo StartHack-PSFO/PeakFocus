@@ -23,10 +23,9 @@ class _TimerViewState extends State<TimerView> {
         "tiger@woods.com",
       ),
       currentAccountPicture: CircleAvatar(
-        child: Image(
-          image: AssetImage("assets/Logo.png"),
-        )
-      ),
+          child: Image(
+        image: AssetImage("assets/Logo.png"),
+      )),
     );
     final drawerItems = ListView(
       children: [
@@ -58,18 +57,12 @@ class _TimerViewState extends State<TimerView> {
     );
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: AppBar(
-          actions: const [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Image(
-                image: AssetImage('assets/Logo.png'),
-              ),
-            ),
-          ],
-        ),
+      extendBodyBehindAppBar: true,
+      // transparent appbar
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -79,6 +72,15 @@ class _TimerViewState extends State<TimerView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Center(
+                  child: Hero(
+                    tag: 'mainLogo',
+                    child: Image(
+                      image: AssetImage('assets/Logo@4.png'),
+                      width: maxWidth * 0.6,
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: EdgeInsets.all(maxWidth * 0.1),
                   child: const Text(
@@ -116,7 +118,8 @@ class _TimerViewState extends State<TimerView> {
                         );
                       }
                     },
-                    child: const Text('Start Routine', style: TextStyle(fontSize: 20)),
+                    child: const Text('Start Routine',
+                        style: TextStyle(fontSize: 20)),
                   ),
                 ),
               ],

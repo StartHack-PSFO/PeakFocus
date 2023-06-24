@@ -37,9 +37,13 @@ class DataController extends GetxController {
     });
   }
 
-  void soundManager() async {
+  Future<void> initMethod() async {
     showOverlay = true;
     await hideOverlay();
+    soundManager();
+  }
+
+  void soundManager() async {
     if (!isMuted) {
       SoundService.playSound('bleep-sound.mp3');
     }
