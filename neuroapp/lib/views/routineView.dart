@@ -42,9 +42,14 @@ class RoutineView extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppBar(
-          title: const Text(
-            "Neuro Routine Trainer",
-          ),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Image(
+                image: AssetImage('assets/Logo.png'),
+              ),
+            ),
+          ],
         ),
       ),
       body: GetBuilder<DataController>(
