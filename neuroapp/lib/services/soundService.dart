@@ -5,12 +5,20 @@ class SoundService {
   static final AudioPlayer _audioPlayer = AudioPlayer();
   static double _volume = 1.0;
 
-  static Future<void> playSound(String soundPath, int stopAfterDelay) async {
+  static Future<void> playSoundAndStopAfterDelay(String soundPath, int stopAfterDelay) async {
     try {
       await _audioPlayer.play(AssetSource(soundPath));
       Timer(Duration(seconds: stopAfterDelay), () {
         _audioPlayer.stop();
       });
+    } catch (e) {
+      print('Failed to play sound: $e');
+    }
+  }
+
+  static Future<void> playSound(String soundPath) async {
+    try {
+      await _audioPlayer.play(AssetSource(soundPath));
     } catch (e) {
       print('Failed to play sound: $e');
     }
