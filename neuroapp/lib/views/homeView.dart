@@ -20,7 +20,7 @@ class _HomeViewState extends State<HomeView> {
             .of(context)
             .colorScheme
             .primary,
-        title: Text('Home View'),
+        title: const Text('Home View'),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -32,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(maxWidth * 0.05), // Responsive margin
-                  child: Text(
+                  child: const Text(
                     'Ready to start working on your routine?',
                     style: TextStyle(fontSize: 18),
                   ),
@@ -46,7 +46,7 @@ class _HomeViewState extends State<HomeView> {
                       Padding(
                         padding: EdgeInsets.only(right: maxWidth * 0.02),
                         // Responsive right margin
-                        child: Text(
+                        child: const Text(
                           'Delay recording:',
                           style: TextStyle(fontSize: 18),
                         ),
@@ -65,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
                       Padding(
                         padding: EdgeInsets.only(left: maxWidth * 0.02),
                         // Responsive right margin
-                        child: Text(
+                        child: const Text(
                           's',
                           style: TextStyle(fontSize: 18),
                         ),
@@ -84,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       );
                     },
-                    child: Text('Start Routine Training'),
+                    child: const Text('Start Routine Training'),
                   ),),
               ],
             ),

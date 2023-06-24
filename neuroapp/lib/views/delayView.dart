@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:neuroapp/services/vibrationService.dart';
 import 'package:neuroapp/views/routineView.dart';
+import 'package:vibration/vibration.dart';
 
 import '../services/soundService.dart';
 
@@ -39,6 +41,7 @@ class _DelayViewState extends State<DelayView> {
         } else {
           timer.cancel();
           SoundService.playSound('bleep-sound.mp3', 2);
+          VibrationService.vibrate(duration: 2);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
