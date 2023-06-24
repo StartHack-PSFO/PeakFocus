@@ -11,6 +11,10 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int _selectedDelay = 0;
+  int _selectedIndex = 0;
+  final List<Widget> _pages = [
+    HomeView()
+  ]; // Replace Container() with other views
 
   void _selectDelay() {
     showModalBottomSheet(
@@ -47,7 +51,44 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final drawerHeader = UserAccountsDrawerHeader(
+      accountName: Text(
+        "Tiger Woods",
+      ),
+      accountEmail: Text(
+        "tiger@woods.com",
+      ),
+      currentAccountPicture: const CircleAvatar(
+        child: FlutterLogo(size: 42.0),
+      ),
+    );
+    final drawerItems = ListView(
+      children: [
+        drawerHeader,
+        ListTile(
+          title: Text(
+            "Train Routines",
+          ),
+          leading: const Icon(Icons.favorite),
+          onTap: () {
+            setState(() {
+              _selectedIndex = 0;
+            });
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
+
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AppBar(
+          title: const Text(
+            "Neuro Routine Trainer",
+          ),
+        ),
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
@@ -106,6 +147,9 @@ class _HomeViewState extends State<HomeView> {
             ),
           );
         },
+      ),
+      drawer: Drawer(
+        child: drawerItems,
       ),
     );
   }
