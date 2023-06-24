@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neuroapp/views/homeView.dart';
+import 'package:neuroapp/views/timerView.dart';
 
 class ResultView extends StatelessWidget {
   ResultView({Key? key}) : super(key: key);

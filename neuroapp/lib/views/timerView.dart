@@ -11,82 +11,63 @@ class TimerView extends StatefulWidget {
 
 class _TimerViewState extends State<TimerView> {
   int _selectedDelay = 0;
-  int _selectedIndex = 0;
-  final List<Widget> _pages = [
-    TimerView()
-  ]; // Replace Container() with other views
-
-  void _selectDelay() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        Duration selectedDuration = Duration(seconds: _selectedDelay);
-
-        return GestureDetector(
-          onTap: () {
-            Navigator.pop(context, selectedDuration);
-          },
-          child: Container(
-            height: 216, // Adjust the height as needed
-            child: CupertinoTimerPicker(
-              mode: CupertinoTimerPickerMode.ms,
-              initialTimerDuration: selectedDuration,
-              onTimerDurationChanged: (Duration duration) {
-                setState(() {
-                  selectedDuration = duration;
-                });
-              },
-            ),
-          ),
-        );
-      },
-    ).then((value) {
-      if (value != null) {
-        setState(() {
-          _selectedDelay = value.inSeconds;
-        });
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    final drawerHeader = UserAccountsDrawerHeader(
+    const drawerHeader = UserAccountsDrawerHeader(
       accountName: Text(
         "Tiger Woods",
       ),
       accountEmail: Text(
         "tiger@woods.com",
       ),
-      currentAccountPicture: const CircleAvatar(
-        child: FlutterLogo(size: 42.0),
+      currentAccountPicture: CircleAvatar(
+        child: Image(
+          image: AssetImage("assets/Logo.png"),
+        )
       ),
     );
     final drawerItems = ListView(
       children: [
         drawerHeader,
         ListTile(
-          title: Text(
+          title: const Text(
             "Train Routines",
           ),
-          leading: const Icon(Icons.favorite),
+          leading: const Icon(Icons.flash_on),
           onTap: () {
-            setState(() {
-              _selectedIndex = 0;
-            });
             Navigator.pop(context);
           },
+        ),
+        ListTile(
+          title: const Text(
+            "Statistics",
+          ),
+          leading: const Icon(Icons.stacked_bar_chart),
+          onTap: () {},
+        ),
+        ListTile(
+          title: const Text(
+            "Settings",
+          ),
+          leading: const Icon(Icons.settings),
+          onTap: () {},
         ),
       ],
     );
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
+        preferredSize: const Size.fromHeight(100.0),
         child: AppBar(
-          title: const Text(
-            "Neuro Routine Trainer",
-          ),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.only(right:8.0, top: 8.0),
+              child: Image(
+                image: AssetImage('assets/Logo.png'),
+              ),
+            ),
+          ],
         ),
       ),
       body: LayoutBuilder(
@@ -98,38 +79,23 @@ class _TimerViewState extends State<TimerView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.all(maxWidth * 0.05), // Responsive margin
+                  padding: EdgeInsets.all(maxWidth * 0.1),
                   child: const Text(
-                    'Ready to start working on your routine?',
-                    style: TextStyle(fontSize: 18),
+                    'Select Countdown',
+                    style: TextStyle(fontSize: 24),
                   ),
                 ),
-                GestureDetector(
-                  onTap: _selectDelay,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: maxWidth * 0.05),
-                    // Responsive horizontal margin
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(right: maxWidth * 0.02),
-                          // Responsive right margin
-                          child: const Text(
-                            'Delay recording:',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        Text(
-                          '$_selectedDelay seconds',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ),
+                CupertinoTimerPicker(
+                  mode: CupertinoTimerPickerMode.ms,
+                  initialTimerDuration: Duration(seconds: _selectedDelay),
+                  onTimerDurationChanged: (Duration duration) {
+                    setState(() {
+                      _selectedDelay = duration.inSeconds;
+                    });
+                  },
                 ),
                 Padding(
-                  padding: EdgeInsets.all(maxWidth * 0.05), // Responsive margin
+                  padding: EdgeInsets.all(maxWidth * 0.1),
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.pushReplacement(
@@ -140,7 +106,7 @@ class _TimerViewState extends State<TimerView> {
                         ),
                       );
                     },
-                    child: const Text('Start Routine Training'),
+                    child: const Text('Start Routine', style: TextStyle(fontSize: 20)),
                   ),
                 ),
               ],

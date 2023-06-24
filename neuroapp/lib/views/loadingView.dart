@@ -1,50 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:neuroapp/views/homeView.dart';
+import 'package:neuroapp/views/timerView.dart';
 
 class LoadingView extends StatefulWidget {
-  final int delay;
-
-  const LoadingView({Key? key, required this.delay}) : super(key: key);
+  const LoadingView({Key? key}) : super(key: key);
 
   @override
   _LoadingViewState createState() => _LoadingViewState();
 }
 
 class _LoadingViewState extends State<LoadingView> {
-  late Timer _timer;
-  int _countdown = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _startCountdown();
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  void _startCountdown() {
-    _countdown = widget.delay;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_countdown > 0) {
-          _countdown--;
-        } else {
-          timer.cancel();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeView(),
-            ),
-          );
-        }
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +19,30 @@ class _LoadingViewState extends State<LoadingView> {
       body: Padding(
         padding: EdgeInsets.all(screenWidth * 0.1),
         child: Center(
-          child: Image(
-            image:
-                AssetImage('assets/Logo@4.png'), // Replace with your image path
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TimerView(),
+                    ),
+                  );
+                },
+                child: SizedBox(
+                  width: screenWidth * 0.8,
+                  child: Image.asset(
+                    'assets/Logo@4.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 40),
+              ),
+              const Text('Click to Start', style: TextStyle(fontSize: 24),),
+            ],
           ),
         ),
       ),
