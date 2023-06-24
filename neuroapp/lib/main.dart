@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neuroapp/views/homeView.dart';
+import 'package:neuroapp/views/loadingView.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xF6E81D), brightness: Brightness.dark),
         useMaterial3: true,
       ),
-      home: HomeView(),
+      home: const HomeView(),
     );
   }
 }
