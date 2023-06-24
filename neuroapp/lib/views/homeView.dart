@@ -12,16 +12,43 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   int _selectedDelay = 0;
 
+  void _selectDelay() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        Duration selectedDuration = Duration(seconds: _selectedDelay);
+
+        return GestureDetector(
+          onTap: () {
+            Navigator.pop(context, selectedDuration);
+          },
+          child: Container(
+            height: 216, // Adjust the height as needed
+            child: CupertinoTimerPicker(
+              mode: CupertinoTimerPickerMode.ms,
+              initialTimerDuration: selectedDuration,
+              onTimerDurationChanged: (Duration duration) {
+                setState(() {
+                  selectedDuration = duration;
+                });
+              },
+            ),
+          ),
+        );
+      },
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          _selectedDelay = value.inSeconds;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .primary,
-        title: const Text('Home View'),
-      ),
+      appBar: null,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
@@ -37,40 +64,28 @@ class _HomeViewState extends State<HomeView> {
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: maxWidth * 0.05),
-                  // Responsive horizontal margin
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(right: maxWidth * 0.02),
-                        // Responsive right margin
-                        child: const Text(
-                          'Delay recording:',
+                GestureDetector(
+                  onTap: _selectDelay,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: maxWidth * 0.05),
+                    // Responsive horizontal margin
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(right: maxWidth * 0.02),
+                          // Responsive right margin
+                          child: const Text(
+                            'Delay recording:',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        Text(
+                          '$_selectedDelay seconds',
                           style: TextStyle(fontSize: 18),
                         ),
-                      ),
-                      SizedBox(
-                        width: maxWidth * 0.3, // Responsive width
-                        child: CupertinoTextField(
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedDelay = int.tryParse(value) ?? 0;
-                            });
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: maxWidth * 0.02),
-                        // Responsive right margin
-                        child: const Text(
-                          's',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -80,12 +95,14 @@ class _HomeViewState extends State<HomeView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DelayView(delay: _selectedDelay),
+                          builder: (context) =>
+                              DelayView(delay: _selectedDelay),
                         ),
                       );
                     },
                     child: const Text('Start Routine Training'),
-                  ),),
+                  ),
+                ),
               ],
             ),
           );
