@@ -55,10 +55,7 @@ class ResultView extends StatelessWidget {
               padding: EdgeInsets.all(33.0),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeView()),
-                  );
+                  Navigator.pop(context);
                 },
                 child: Text('Focus again'),
               ),
