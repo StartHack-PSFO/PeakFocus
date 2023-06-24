@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:neuroapp/views/delayView.dart';
 import 'package:neuroapp/views/routineView.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key, required this.title});
-  final String title;
+  const HomeView({Key? key}) : super(key: key);
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  _HomeViewState createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
@@ -17,50 +17,80 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(widget.title),
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .primary,
+        title: Text('Home View'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Ready to start working on your routine?',
-              style: TextStyle(fontSize: 18),
-            ),
-            const Text(
-              'Do you need a delay before we start recording?',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(
-              width: 200,
-              child: CupertinoTextField(
-                keyboardType: TextInputType.number,
-                placeholder: 'Enter delay in seconds',
-                onChanged: (value) {
-                  setState(() {
-                    _selectedDelay = int.tryParse(value) ?? 0;
-                  });
-                },
-              ),
-            ),
-            Text(
-              'Selected Delay: $_selectedDelay seconds',
-              style: TextStyle(fontSize: 18),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RoutineView(),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final maxWidth = constraints.maxWidth;
+
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(maxWidth * 0.05), // Responsive margin
+                  child: Text(
+                    'Ready to start working on your routine?',
+                    style: TextStyle(fontSize: 18),
                   ),
-                );
-              },
-              child: Text('Start Routine Training'),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: maxWidth * 0.05),
+                  // Responsive horizontal margin
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(right: maxWidth * 0.02),
+                        // Responsive right margin
+                        child: Text(
+                          'Delay recording:',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      SizedBox(
+                        width: maxWidth * 0.3, // Responsive width
+                        child: CupertinoTextField(
+                          keyboardType: TextInputType.number,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedDelay = int.tryParse(value) ?? 0;
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: maxWidth * 0.02),
+                        // Responsive right margin
+                        child: Text(
+                          's',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(maxWidth * 0.05), // Responsive margin
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DelayView(delay: _selectedDelay),
+                        ),
+                      );
+                    },
+                    child: Text('Start Routine Training'),
+                  ),),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
