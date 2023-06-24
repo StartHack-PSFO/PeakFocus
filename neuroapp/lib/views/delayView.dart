@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:neuroapp/services/vibrationService.dart';
+import 'package:neuroapp/views/rotatingDotCircle.dart';
 import 'package:neuroapp/views/routineView.dart';
 import 'package:vibration/vibration.dart';
 
 import '../services/soundService.dart';
+import './rotatingDotCircle.dart';
 
 class DelayView extends StatefulWidget {
   final int delay;
@@ -40,7 +43,7 @@ class _DelayViewState extends State<DelayView> {
           _countdown--;
         } else {
           timer.cancel();
-          SoundService.playSoundAndStopAfterDelay('bleep-sound.mp3', 2);
+          SoundService.playSound('bleep-sound.mp3');
           VibrationService.vibrateForDuration(duration: 2);
           Navigator.pushReplacement(
             context,
@@ -57,9 +60,9 @@ class _DelayViewState extends State<DelayView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          '$_countdown',
-          style: TextStyle(fontSize: 36),
+        child: Padding(
+          padding: EdgeInsets.all(80.0), // Adjust the padding value as needed
+          child: RotatingDotCircle(countdown: _countdown),
         ),
       ),
     );

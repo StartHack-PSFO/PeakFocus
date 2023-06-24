@@ -28,12 +28,12 @@ class DataController extends GetxController {
 
   void toggleMute() {
     isMuted = !isMuted;
-    update(['controlsColumn']);
+    update(['controlColumn']);
   }
 
   void toggleVibrate() {
     canVibrate = !canVibrate;
-    update(['controlsColumn']);
+    update(['controlColumn']);
   }
 
   void getData() async {
