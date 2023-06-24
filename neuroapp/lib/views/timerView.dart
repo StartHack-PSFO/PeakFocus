@@ -59,11 +59,11 @@ class _TimerViewState extends State<TimerView> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100.0),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppBar(
           actions: const [
             Padding(
-              padding: EdgeInsets.only(right:8.0, top: 8.0),
+              padding: EdgeInsets.all(8.0),
               child: Image(
                 image: AssetImage('assets/Logo.png'),
               ),
