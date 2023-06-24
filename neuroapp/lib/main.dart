@@ -16,19 +16,19 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const NavDrawerDemo(), // Use NavDrawerDemo as the home widget
+      home: const NavDrawer(),
     );
   }
 }
 
-class NavDrawerDemo extends StatefulWidget {
-  const NavDrawerDemo({Key? key}) : super(key: key);
+class NavDrawer extends StatefulWidget {
+  const NavDrawer({Key? key}) : super(key: key);
 
   @override
-  _NavDrawerDemoState createState() => _NavDrawerDemoState();
+  _NavDrawerState createState() => _NavDrawerState();
 }
 
-class _NavDrawerDemoState extends State<NavDrawerDemo> {
+class _NavDrawerState extends State<NavDrawer> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [HomeView(), Container()]; // Replace Container() with other views
 
@@ -63,9 +63,12 @@ class _NavDrawerDemoState extends State<NavDrawerDemo> {
       ],
     );
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Neuro Routine Trainer",
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AppBar(
+          title: const Text(
+            "Neuro Routine Trainer",
+          ),
         ),
       ),
       body: Semantics(
