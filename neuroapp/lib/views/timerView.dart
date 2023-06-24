@@ -2,18 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:neuroapp/views/delayView.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+class TimerView extends StatefulWidget {
+  const TimerView({Key? key}) : super(key: key);
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _TimerViewState createState() => _TimerViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _TimerViewState extends State<TimerView> {
   int _selectedDelay = 0;
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    HomeView()
+    TimerView()
   ]; // Replace Container() with other views
 
   void _selectDelay() {
@@ -132,7 +132,7 @@ class _HomeViewState extends State<HomeView> {
                   padding: EdgeInsets.all(maxWidth * 0.05), // Responsive margin
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
