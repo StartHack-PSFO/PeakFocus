@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:neuroapp/views/homeView.dart';
 import 'package:neuroapp/views/loadingView.dart';
 
 import 'views/data_controller.dart';
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Raleway',
       ),
-      home: const HomeView(),
+      home: const LoadingView(),
       debugShowCheckedModeBanner: false,
     );
   }

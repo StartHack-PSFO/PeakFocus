@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neuroapp/views/homeView.dart';
+import 'package:neuroapp/views/timerView.dart';
 
 class ResultView extends StatefulWidget {
   ResultView({Key? key}) : super(key: key);
@@ -45,9 +45,14 @@ class _ResultViewState extends State<ResultView>
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppBar(
-          title: const Text(
-            "Neuro Routine Trainer",
-          ),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Image(
+                image: AssetImage('assets/Logo.png'),
+              ),
+            ),
+          ],
         ),
       ),
       body: Center(
