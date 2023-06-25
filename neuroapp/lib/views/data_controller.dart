@@ -22,6 +22,9 @@ class DataController extends GetxController {
 
   bool showOverlay = true;
 
+  double sum = 0;
+  double counter = 0;
+
   @override
   void onReady() {
     // TODO: implement onReady
@@ -89,6 +92,8 @@ class DataController extends GetxController {
 
           // if (json != '') {
           brainData = json * 1.0;
+          counter++;
+          sum += brainData;
           SoundService.setVolume(brainData);
           update(['brainDataIndicator']);
           // }
