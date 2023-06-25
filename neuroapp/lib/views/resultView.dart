@@ -63,13 +63,11 @@ class _ResultViewState extends State<ResultView>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Results',
-              style: TextStyle(
+            Text('Results',
+                style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.w700,
-                  fontFamily: 'Raleway'),
-            ),
+                )),
             const SizedBox(
               width: 60.0,
               height: 2.0,

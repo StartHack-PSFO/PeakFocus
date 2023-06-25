@@ -68,12 +68,12 @@ flutter:
     - assets/Logo@4.png
     - assets/reach.png
 
-  # fonts:
-  #   - family: Raleway
-  #     fonts:
-  #       - asset: assets/fonts/Raleway-Regular.ttf
-  #       - asset: assets/fonts/Raleway-Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/Raleway/Raleway-Regular.ttf
+        - asset: assets/Raleway/Raleway-Bold.ttf
+          weight: 700
         # - asset: assets/Raleway/Raleway-Black.ttf
         #   weight: 800
         # - asset: assets/Raleway/Raleway-BlackItalic.ttf
