@@ -79,7 +79,7 @@ class _ResultViewState extends State<ResultView>
                       scale: 5,
                       child: CircularProgressIndicator(
                         value: progress,
-                        strokeWidth: 5,
+                        strokeWidth: 4,
                       ),
                     ),
                     Text('Avg:\n',
@@ -137,7 +137,7 @@ class _ResultViewState extends State<ResultView>
                   DataController.to.counter = 0;
                   Navigator.pop(context);
                 },
-                child: Text('Go Again', style: TextStyle(fontSize: 36)),
+                child: Text('Go Again', style: TextStyle(fontSize: 20)),
               ),
             ),
           ],
