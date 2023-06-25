@@ -73,8 +73,8 @@ class RoutineView extends StatelessWidget {
                               builder: (_) {
                                 return Padding(
                                   padding: EdgeInsets.all(16.0),
-                                  child:
-                                      Text('${DataController.to.brainData}%'),
+                                  child: Text(
+                                      '${DataController.to.brainData.toStringAsFixed(2)}%'),
                                 );
                               }),
                           ElevatedButton(
@@ -89,7 +89,11 @@ class RoutineView extends StatelessWidget {
                                 ),
                               );
                             },
-                            child: const Text('See results'),
+                            child: const Text(
+                              'See results',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w300),
+                            ),
                           ),
                         ],
                       ),
