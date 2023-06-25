@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:neuroapp/services/soundService.dart';
+import 'package:neuroapp/services/vibrationService.dart';
 import 'package:neuroapp/views/data_controller.dart';
 import 'package:neuroapp/views/resultView.dart';
 
 class RoutineView extends StatelessWidget {
-
   DateTime? startTime;
 
   RoutineView() {
@@ -19,7 +19,6 @@ class RoutineView extends StatelessWidget {
     DataController.to.brainDataAboveThreshold = false;
     DataController.to.routineIsActive = true;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +80,8 @@ class RoutineView extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () {
                               SoundService.stopSound();
+                              VibrationService.stopVibration();
+                              DataController.to.routineIsActive = false;
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(

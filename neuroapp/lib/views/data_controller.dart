@@ -59,7 +59,7 @@ class DataController extends GetxController {
   }
 
   void soundManager() async {
-    if (!isMuted) {
+    if (!isMuted && !SoundService.isSoundPlaying) {
       SoundService.playSound('bleep-sound.mp3');
     }
     if (isMuted) {
@@ -94,19 +94,18 @@ class DataController extends GetxController {
 
       print("listening to socket... " +
           '${client.remoteAddress.address}:${client.remotePort}');
-      subscription = client.listen((var data) {
+      subscription = client.listen((var data) async {
         try {
           num json = jsonDecode(utf8.decode(data));
 
-          // if (json != '') {
+          if (routineIsActive) {
           brainData = json * 1.0;
           counter++;
           sum += brainData;
           SoundService.setVolume(1- brainData);
           update(['brainDataIndicator']);
 
-          if (routineIsActive) {
-            if (brainData > brainDataThreshold) {
+            if (brainData > brainDataThreshold && startTime != null && DateTime.now().difference(startTime!) >= const Duration(milliseconds: 10000)) {
               if (firstTimeAboveThreshold == null) {
                 firstTimeAboveThreshold = DateTime.now();
                 print('First time above threshold: ' + brainData.toString());
@@ -116,14 +115,14 @@ class DataController extends GetxController {
                       Duration(milliseconds: brainDataAboveThresholdDuration)) {
                 print('Routine is over now!');
                 SoundService.stopSound();
+                VibrationService.stopVibration();
+                routineIsActive = false;
                 Navigator.pushReplacement(
                   Get.context!,
                   MaterialPageRoute(
-                    builder: (context) => ResultView(),
+                    builder: (_) => ResultView(),
                   ),
                 );
-
-                routineIsActive = false;
               }
             } else {
               firstTimeAboveThreshold = null;
