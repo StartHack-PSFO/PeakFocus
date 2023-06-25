@@ -43,8 +43,6 @@ class _DelayViewState extends State<DelayView> {
           _countdown--;
         } else {
           timer.cancel();
-          // SoundService.playSoundAndStopAfterDelay('bleep-sound.mp3', 2);
-          // VibrationService.vibrateForDuration(duration: 2);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(

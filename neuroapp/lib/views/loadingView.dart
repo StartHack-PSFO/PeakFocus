@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:neuroapp/services/soundService.dart';
 import 'package:neuroapp/views/timerView.dart';
 
 class LoadingView extends StatefulWidget {
@@ -13,7 +14,7 @@ class _LoadingViewState extends State<LoadingView> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-
+    SoundService.stopSound();
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(screenWidth * 0.1),

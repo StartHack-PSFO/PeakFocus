@@ -15,7 +15,7 @@ import '../services/vibrationService.dart';
 class DataController extends GetxController {
   static DataController get to => Get.find();
   static double brainDataThreshold = 0.8;
-  static int brainDataAboveThresholdDuration = 800; // milliseconds
+  static int brainDataAboveThresholdDuration = 2000; // milliseconds
 
   late Socket client;
   late StreamSubscription<Uint8List> subscription;
@@ -52,11 +52,7 @@ class DataController extends GetxController {
 
   Future<void> initMethod() async {
     SoundService.setVolume(1.0);
-    await SoundService.playSound('bleep-sound.mp3');
-    VibrationService.vibrateForDuration(duration: 2);
-    await Future.delayed(const Duration(seconds: 2), () {
-      SoundService.stopSound();
-    });
+    SoundService.playSound('bleep-sound.mp3');
     showOverlay = true;
     await hideOverlay();
     soundManager();
@@ -86,10 +82,6 @@ class DataController extends GetxController {
     update(['controlColumn']);
   }
 
-  void stopSound() {
-    SoundService.stopSound();
-  }
-
   void getData() async {
     try {
       print('connecting to server...');
@@ -110,7 +102,7 @@ class DataController extends GetxController {
           brainData = json * 1.0;
           counter++;
           sum += brainData;
-          SoundService.setVolume(1 - brainData);
+          SoundService.setVolume(1- brainData);
           update(['brainDataIndicator']);
 
           if (routineIsActive) {
@@ -123,7 +115,7 @@ class DataController extends GetxController {
                   DateTime.now().difference(firstTimeAboveThreshold!) >=
                       Duration(milliseconds: brainDataAboveThresholdDuration)) {
                 print('Routine is over now!');
-                stopSound();
+                SoundService.stopSound();
                 Navigator.pushReplacement(
                   Get.context!,
                   MaterialPageRoute(

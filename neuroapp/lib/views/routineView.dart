@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:neuroapp/services/soundService.dart';
-import 'package:neuroapp/services/vibrationService.dart';
 import 'package:neuroapp/views/data_controller.dart';
 import 'package:neuroapp/views/resultView.dart';
 
@@ -12,9 +11,6 @@ class RoutineView extends StatelessWidget {
   DateTime? startTime;
 
   RoutineView() {
-    DataController.to.initMethod();
-    // SoundService.playSoundAndStopAfterDelay('bleep-sound.mp3', 1);
-    VibrationService.vibrateForDuration(duration: 1);
     DataController.to.initMethod();
     startTime = DateTime.now();
     // Reset the Start Time of the Routine
@@ -84,7 +80,7 @@ class RoutineView extends StatelessWidget {
                               }),
                           ElevatedButton(
                             onPressed: () {
-                              DataController.to.stopSound();
+                              SoundService.stopSound();
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
