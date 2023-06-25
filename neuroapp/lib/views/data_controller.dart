@@ -128,7 +128,7 @@ class DataController extends GetxController {
                 Navigator.pushReplacement(
                   Get.context!,
                   MaterialPageRoute(
-                    builder: (context) => ResultView(),
+                    builder: (_) => ResultView(),
                   ),
                 );
               }
