@@ -8,30 +8,20 @@ import 'package:neuroapp/views/data_controller.dart';
 import 'package:neuroapp/views/resultView.dart';
 
 class RoutineView extends StatelessWidget {
-  // double _progress = 0.42; // Set your initial percentage value here
-  // bool _isMuted = false; // Track the mute state
-  // bool _canVibrate = false; // Track the mute state
 
-  // void _toggleMute() {
-  //   setState(() {
-  //     _isMuted = !_isMuted;
-  //   });
-
-  //   // Call your service here with the _isMuted value
-  //   // For example: _myService.setMute(_isMuted);
-  // }
-
-  // void _toggleVibrate() {
-  //   setState(() {
-  //     _canVibrate = !_canVibrate;
-  //   });
-
-  //   // Call your service here with the _isMuted value
-  //   // For example: _myService.setMute(_isMuted);
-  // }
+  DateTime? startTime;
 
   RoutineView() {
-     DataController.to.initMethod();
+    DataController.to.initMethod();
+    // SoundService.playSoundAndStopAfterDelay('bleep-sound.mp3', 1);
+    VibrationService.vibrateForDuration(duration: 1);
+    DataController.to.initMethod();
+    startTime = DateTime.now();
+    // Reset the Start Time of the Routine
+    DataController.to.startTime = startTime;
+    DataController.to.firstTimeAboveThreshold = null;
+    DataController.to.brainDataAboveThreshold = false;
+    DataController.to.routineIsActive = true;
   }
 
   @override

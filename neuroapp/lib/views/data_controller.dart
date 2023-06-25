@@ -1,7 +1,9 @@
 import 'dart:ffi';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:neuroapp/services/soundService.dart';
+import 'package:neuroapp/views/resultView.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -12,6 +14,8 @@ import '../services/vibrationService.dart';
 
 class DataController extends GetxController {
   static DataController get to => Get.find();
+  static double brainDataThreshold = 0.8;
+  static int brainDataAboveThresholdDuration = 800; // milliseconds
 
   late Socket client;
   late StreamSubscription<Uint8List> subscription;
@@ -25,6 +29,11 @@ class DataController extends GetxController {
 
   double sum = 0;
   double counter = 0;
+  // To determine if the routine is over.
+  DateTime? startTime;
+  DateTime? firstTimeAboveThreshold;
+  bool brainDataAboveThreshold = false;
+  bool routineIsActive = false;
 
   @override
   void onReady() {
@@ -103,6 +112,32 @@ class DataController extends GetxController {
           sum += brainData;
           SoundService.setVolume(brainData);
           update(['brainDataIndicator']);
+
+          if (routineIsActive) {
+            if (brainData > brainDataThreshold) {
+              if (firstTimeAboveThreshold == null) {
+                firstTimeAboveThreshold = DateTime.now();
+                print('First time above threshold: ' + brainData.toString());
+              }
+              if (firstTimeAboveThreshold != null &&
+                  DateTime.now().difference(firstTimeAboveThreshold!) >=
+                      Duration(milliseconds: brainDataAboveThresholdDuration)) {
+                print('Routine is over now!');
+                stopSound();
+                Navigator.pushReplacement(
+                  Get.context!,
+                  MaterialPageRoute(
+                    builder: (context) => ResultView(),
+                  ),
+                );
+
+                routineIsActive = false;
+              }
+            } else {
+              firstTimeAboveThreshold = null;
+              print('Reset FirstTimeAboveThreshold.');
+            }
+          }
           // }
         } catch (e) {
           print("stream error" + e.toString());
