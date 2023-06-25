@@ -58,12 +58,14 @@ class _TimerViewState extends State<TimerView> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      // transparent appbar
+      // transparent appbar with drawer as action
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: Colors.white),
+        forceMaterialTransparency: true,
       ),
+
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;

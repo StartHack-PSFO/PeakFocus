@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neuroapp/views/data_controller.dart';
 import 'package:neuroapp/views/timerView.dart';
 
 class ResultView extends StatefulWidget {
@@ -11,7 +12,7 @@ class ResultView extends StatefulWidget {
 class _ResultViewState extends State<ResultView>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  var progress = 0.6;
+  var progress = DataController.to.sum / DataController.to.counter;
   var seconds = 20;
 
   @override
@@ -48,8 +49,11 @@ class _ResultViewState extends State<ResultView>
           actions: const [
             Padding(
               padding: EdgeInsets.all(8.0),
-              child: Image(
-                image: AssetImage('assets/Logo.png'),
+              child: Hero(
+                tag: 'mainLogo',
+                child: Image(
+                  image: AssetImage('assets/Logo.png'),
+                ),
               ),
             ),
           ],
@@ -129,6 +133,8 @@ class _ResultViewState extends State<ResultView>
               padding: EdgeInsets.all(33.0),
               child: ElevatedButton(
                 onPressed: () {
+                  DataController.to.sum = 0;
+                  DataController.to.counter = 0;
                   Navigator.pop(context);
                 },
                 child: Text('Go Again', style: TextStyle(fontSize: 36)),
