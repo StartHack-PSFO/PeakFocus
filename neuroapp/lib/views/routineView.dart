@@ -12,9 +12,6 @@ class RoutineView extends StatelessWidget {
 
   RoutineView() {
     DataController.to.initMethod();
-    // SoundService.playSoundAndStopAfterDelay('bleep-sound.mp3', 1);
-    VibrationService.vibrateForDuration(duration: 1);
-    DataController.to.initMethod();
     startTime = DateTime.now();
     // Reset the Start Time of the Routine
     DataController.to.startTime = startTime;
@@ -82,7 +79,9 @@ class RoutineView extends StatelessWidget {
                               }),
                           ElevatedButton(
                             onPressed: () {
-                              DataController.to.stopSound();
+                              SoundService.stopSound();
+                              VibrationService.stopVibration();
+                              DataController.to.routineIsActive = false;
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
