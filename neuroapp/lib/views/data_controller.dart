@@ -8,6 +8,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import '../services/service_models.dart';
+import '../services/vibrationService.dart';
 
 class DataController extends GetxController {
   static DataController get to => Get.find();
@@ -41,6 +42,12 @@ class DataController extends GetxController {
   }
 
   Future<void> initMethod() async {
+    SoundService.setVolume(1.0);
+    await SoundService.playSound('bleep-sound.mp3');
+    VibrationService.vibrateForDuration(duration: 2);
+    await Future.delayed(const Duration(seconds: 2), () {
+      SoundService.stopSound();
+    });
     showOverlay = true;
     await hideOverlay();
     soundManager();

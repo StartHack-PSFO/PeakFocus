@@ -31,9 +31,7 @@ class RoutineView extends StatelessWidget {
   // }
 
   RoutineView() {
-    // SoundService.playSoundAndStopAfterDelay('bleep-sound.mp3', 1);
-    // VibrationService.vibrateForDuration(duration: 1);
-    DataController.to.initMethod();
+     DataController.to.initMethod();
   }
 
   @override
