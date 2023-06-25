@@ -63,7 +63,7 @@ class DataController extends GetxController {
   }
 
   void soundManager() async {
-    if (!isMuted) {
+    if (!isMuted && !SoundService.isSoundPlaying) {
       SoundService.playSound('bleep-sound.mp3');
     }
     if (isMuted) {
@@ -102,7 +102,7 @@ class DataController extends GetxController {
 
       print("listening to socket... " +
           '${client.remoteAddress.address}:${client.remotePort}');
-      subscription = client.listen((var data) {
+      subscription = client.listen((var data) async {
         try {
           num json = jsonDecode(utf8.decode(data));
 
@@ -124,14 +124,13 @@ class DataController extends GetxController {
                       Duration(milliseconds: brainDataAboveThresholdDuration)) {
                 print('Routine is over now!');
                 stopSound();
+                routineIsActive = false;
                 Navigator.pushReplacement(
                   Get.context!,
                   MaterialPageRoute(
                     builder: (context) => ResultView(),
                   ),
                 );
-
-                routineIsActive = false;
               }
             } else {
               firstTimeAboveThreshold = null;
