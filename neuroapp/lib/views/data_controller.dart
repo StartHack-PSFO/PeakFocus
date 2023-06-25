@@ -110,7 +110,7 @@ class DataController extends GetxController {
           brainData = json * 1.0;
           counter++;
           sum += brainData;
-          SoundService.setVolume(brainData);
+          SoundService.setVolume(1 - brainData);
           update(['brainDataIndicator']);
 
           if (routineIsActive) {
