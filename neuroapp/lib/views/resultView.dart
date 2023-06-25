@@ -65,7 +65,17 @@ class _ResultViewState extends State<ResultView>
           children: [
             Text(
               'Results',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Raleway'),
+            ),
+            const SizedBox(
+              width: 60.0,
+              height: 2.0,
+              child: const DecoratedBox(
+                decoration: const BoxDecoration(color: Colors.white),
+              ),
             ),
             SizedBox(height: 20),
             Container(
