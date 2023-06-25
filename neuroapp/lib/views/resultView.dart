@@ -94,11 +94,14 @@ class _ResultViewState extends State<ResultView>
                     ),
                     Text('Avg:\n',
                         style: TextStyle(
-                            fontSize: 22, fontStyle: FontStyle.italic)),
+                            fontSize: 22,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.w300)),
                     Text('\n${(progress * 100).toStringAsFixed(0)}%',
                         style: TextStyle(
                             fontSize: 32,
-                            color: Theme.of(context).colorScheme.primary)),
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.w300)),
                   ],
                 ),
               ),

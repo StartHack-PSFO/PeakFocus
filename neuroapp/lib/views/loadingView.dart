@@ -46,7 +46,7 @@ class _LoadingViewState extends State<LoadingView> {
               ),
               const Text(
                 'Click to Start',
-                style: TextStyle(fontSize: 24),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w300),
               ),
             ],
           ),

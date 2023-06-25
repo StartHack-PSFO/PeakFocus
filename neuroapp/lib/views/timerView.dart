@@ -87,7 +87,7 @@ class _TimerViewState extends State<TimerView> {
                   padding: EdgeInsets.all(maxWidth * 0.1),
                   child: const Text(
                     'Select Countdown',
-                    style: TextStyle(fontSize: 24),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                   ),
                 ),
                 CupertinoTimerPicker(
