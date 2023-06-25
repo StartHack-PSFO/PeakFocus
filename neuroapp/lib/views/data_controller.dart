@@ -89,7 +89,7 @@ class DataController extends GetxController {
 
           // if (json != '') {
           brainData = json * 1.0;
-          SoundService.setVolume(brainData);
+          SoundService.setVolume(1 - brainData);
           update(['brainDataIndicator']);
           // }
         } catch (e) {
