@@ -8,7 +8,6 @@ import 'package:neuroapp/views/data_controller.dart';
 import 'package:neuroapp/views/resultView.dart';
 
 class RoutineView extends StatelessWidget {
-
   DateTime? startTime;
 
   RoutineView() {
@@ -23,7 +22,6 @@ class RoutineView extends StatelessWidget {
     DataController.to.brainDataAboveThreshold = false;
     DataController.to.routineIsActive = true;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
