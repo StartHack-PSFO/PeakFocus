@@ -7,7 +7,7 @@ Welcome to the **PEAKFocus** repository! This is the home of the **PEAKFocus** a
 - Shaurya Sharma, @shauryainf
 
 # Challenge
-Proposed by [brainboost](https://brainboost.de/en/) our great company partner for the hack, to drive innovation in the healt- and sportssector they gave this [challenge](https://www.linkedin.com/feed/update/urn:li:activity:7074671365953335296/):
+Proposed by [brainboost](https://brainboost.de/en/) our great company partner for the hack, to drive innovation in the health- and sports-sector they gave this [challenge](https://www.linkedin.com/feed/update/urn:li:activity:7074671365953335296/):
 
 Create an innovative software prototype that seamlessly integrates with brainboost's diverse product portfolio of live neurofeedback and EEG data for atlethe training and state-of-the-art technology infrastructure.
 
