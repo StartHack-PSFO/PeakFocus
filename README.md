@@ -22,7 +22,7 @@ Check out our [pitch](assets/PeakFocusPitch.pdf) for more details and watch the 
 Please pay attention to the dependencies and follow the instructions below to build and run the application on your local machine. 
 
 ## Pre-requisites & Dependencies
-We build **PEAKFocus** with [Flutter](https://flutter.dev/) and [Dart](https://dart.dev/). Please follow the [installation instructions](https://flutter.dev/docs/get-started/install) to set up your local development environment. We deliberatily developed **PEAKFocus** to be compatible with a wide range of neurofeedback devices. For the hackathon we used EEG caps provided by [brainboost](https://brainboost.de/en/) and transmitting software provided by them that precisely filters out brain activity from the raw EEG data. This filtered data stream can then be send to ou backend dataservice via tcp. For the application to function properly this data stream is required. 
+We built **PEAKFocus** with [Flutter](https://flutter.dev/) and [Dart](https://dart.dev/). Please follow the [installation instructions](https://flutter.dev/docs/get-started/install) to set up your local development environment. We deliberatily developed **PEAKFocus** to be compatible with a wide range of neurofeedback devices. For the hackathon we used EEG caps provided by [brainboost](https://brainboost.de/en/) and transmitting software provided by them that precisely filters out brain activity from the raw EEG data. This filtered data stream can then be send to ou backend dataservice via tcp. For the application to function properly this data stream is required. 
 
 ## Project Structure
 ```bash 
