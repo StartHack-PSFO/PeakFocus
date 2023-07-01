@@ -84,6 +84,20 @@ class DataController extends GetxController {
   }
 
   void getData() async {
+    while (true) {
+      await Future.delayed(const Duration(milliseconds: 100));
+      if (routineIsActive) {
+        // brain data is a sine wave based on the current time
+        var rng = Random();
+        brainData = sin(DateTime.now().millisecondsSinceEpoch) / (3.1415 / 2.0);
+        brainData = brainData.abs();
+        // brainData = (sin(DateTime.now().millisecondsSinceEpoch / 1000) + 1) / 2;
+        // Add random noise
+        brainData += rng.nextDouble() / 10;
+        // brainData = 0.4;
+      }
+    }
+
     try {
       print('connecting to server...');
       client = await Socket.connect('10.181.64.35', 14535);
