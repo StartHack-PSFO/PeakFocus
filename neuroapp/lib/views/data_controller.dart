@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -99,13 +100,16 @@ class DataController extends GetxController {
           num json = jsonDecode(utf8.decode(data));
 
           if (routineIsActive) {
-          brainData = json * 1.0;
-          counter++;
-          sum += brainData;
-          SoundService.setVolume(1- brainData);
-          update(['brainDataIndicator']);
+            brainData = json * 1.0;
+            counter++;
+            sum += brainData;
+            SoundService.setVolume(1 - brainData);
+            update(['brainDataIndicator']);
 
-            if (brainData > brainDataThreshold && startTime != null && DateTime.now().difference(startTime!) >= const Duration(milliseconds: 10000)) {
+            if (brainData > brainDataThreshold &&
+                startTime != null &&
+                DateTime.now().difference(startTime!) >=
+                    const Duration(milliseconds: 20000)) {
               if (firstTimeAboveThreshold == null) {
                 firstTimeAboveThreshold = DateTime.now();
                 print('First time above threshold: ' + brainData.toString());
