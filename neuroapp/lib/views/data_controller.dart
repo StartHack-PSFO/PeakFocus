@@ -83,85 +83,18 @@ class DataController extends GetxController {
     update(['controlColumn']);
   }
 
-  void getData() async {
-    while (true) {
-      await Future.delayed(const Duration(milliseconds: 100));
+  void getData() {
+    Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (routineIsActive) {
         // brain data is a sine wave based on the current time
-        var rng = Random();
-        brainData = sin(DateTime.now().millisecondsSinceEpoch) / (3.1415 / 2.0);
+        var currentTime = DateTime.now().millisecondsSinceEpoch;
+        brainData = sin(currentTime / 1000) / (pi / 2);
         brainData = brainData.abs();
-        // brainData = (sin(DateTime.now().millisecondsSinceEpoch / 1000) + 1) / 2;
         // Add random noise
-        brainData += rng.nextDouble() / 10;
+        brainData += Random().nextDouble() / 10;
         // brainData = 0.4;
       }
-    }
-
-    try {
-      print('connecting to server...');
-      client = await Socket.connect('10.181.64.35', 14535);
-      ClientInitPackage clientInitPackage = ClientInitPackage();
-      print('Connected to: '
-          '${client.remoteAddress.address}:${client.remotePort}');
-      client.write('${jsonEncode(clientInitPackage)}\n');
-      client.flush();
-
-      print("listening to socket... " +
-          '${client.remoteAddress.address}:${client.remotePort}');
-      subscription = client.listen((var data) async {
-        try {
-          num json = jsonDecode(utf8.decode(data));
-
-          if (routineIsActive) {
-            brainData = json * 1.0;
-            counter++;
-            sum += brainData;
-            SoundService.setVolume(1 - brainData);
-            update(['brainDataIndicator']);
-
-            if (brainData > brainDataThreshold &&
-                startTime != null &&
-                DateTime.now().difference(startTime!) >=
-                    const Duration(milliseconds: 20000)) {
-              if (firstTimeAboveThreshold == null) {
-                firstTimeAboveThreshold = DateTime.now();
-                print('First time above threshold: ' + brainData.toString());
-              }
-              if (firstTimeAboveThreshold != null &&
-                  DateTime.now().difference(firstTimeAboveThreshold!) >=
-                      Duration(milliseconds: brainDataAboveThresholdDuration)) {
-                print('Routine is over now!');
-                SoundService.stopSound();
-                VibrationService.stopVibration();
-                routineIsActive = false;
-                Navigator.pushReplacement(
-                  Get.context!,
-                  MaterialPageRoute(
-                    builder: (_) => ResultView(),
-                  ),
-                );
-              }
-            } else {
-              firstTimeAboveThreshold = null;
-              print('Reset FirstTimeAboveThreshold.');
-            }
-          }
-          // }
-        } catch (e) {
-          print("stream error" + e.toString());
-        }
-      }, onDone: () {
-        print('Done');
-        // client.close();
-      }, onError: (e) {
-        print('Got error $e');
-        subscription.cancel();
-      });
-      print('main done');
-    } catch (e) {
-      print('Catched error $e');
-    }
+    });
   }
 
   void closeConnection() {
