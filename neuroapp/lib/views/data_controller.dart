@@ -84,40 +84,48 @@ class DataController extends GetxController {
   }
 
   void getData() {
-    Timer.periodic(const Duration(milliseconds: 100), (timer) {
+    Timer.periodic(const Duration(milliseconds: 10), (timer) {
       if (routineIsActive) {
-        var currentTime = DateTime.now().millisecondsSinceEpoch;
-        brainData = (sin(currentTime / 1000) / (pi / 2)).abs();
-        brainData += Random().nextDouble() / 10;
+        // Simulate brain data.
+        var simDuration = DateTime.now().difference(startTime!);
+        switch (simDuration.inMilliseconds) {
+          case <= 4000:
+            brainData = Random().nextDouble() * 0.20;
+            break;
+          case <= 9000:
+            brainData =
+                (sin(DateTime.now().millisecondsSinceEpoch / 1000) / (pi / 2))
+                        .abs() +
+                    (Random().nextDouble() / 10);
+            break;
+          case <= 11000:
+            brainData = Random().nextDouble() * 0.15 + 0.65;
+            break;
+          case <= 14000:
+            brainData = Random().nextDouble() * 0.15 + 0.75;
+            break;
+          default:
+            brainData = Random().nextDouble() * 0.5 + 0.92;
+            break;
+        }
+
+        // Set brain data state for UI update.
         sum += brainData;
         counter++;
         SoundService.setVolume(1 - brainData);
         update(['brainDataIndicator']);
-        if (brainData > brainDataThreshold &&
-            startTime != null &&
-            DateTime.now().difference(startTime!) >=
-                const Duration(milliseconds: 20000)) {
-          if (firstTimeAboveThreshold == null) {
-            firstTimeAboveThreshold = DateTime.now();
-            print('First time above threshold: ' + brainData.toString());
-          }
-          if (firstTimeAboveThreshold != null &&
-              DateTime.now().difference(firstTimeAboveThreshold!) >=
-                  Duration(milliseconds: brainDataAboveThresholdDuration)) {
-            print('Routine is over now!');
-            SoundService.stopSound();
-            VibrationService.stopVibration();
-            routineIsActive = false;
-            Navigator.pushReplacement(
-              Get.context!,
-              MaterialPageRoute(
-                builder: (_) => ResultView(),
-              ),
-            );
-          }
-        } else {
-          firstTimeAboveThreshold = null;
-          print('Reset FirstTimeAboveThreshold.');
+
+        // Break routine.
+        if (simDuration > const Duration(milliseconds: 18000)) {
+          SoundService.stopSound();
+          VibrationService.stopVibration();
+          routineIsActive = false;
+          Navigator.pushReplacement(
+            Get.context!,
+            MaterialPageRoute(
+              builder: (_) => ResultView(),
+            ),
+          );
         }
       }
     });
