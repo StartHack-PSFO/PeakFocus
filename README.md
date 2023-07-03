@@ -16,7 +16,7 @@ Proposed by [brainboost](https://brainboost.de/en/) our great company partner fo
 
 Check out our [pitch](assets/PeakFocusPitch.pdf) for more details and watch the following product demo:
 
-![PEAKFocus](assets/PEAKFocus.gif)
+![PEAKFocus](assets/PEAKFocus.mp4)
 
 # Technical Documentation
 Please pay attention to the dependencies and follow the instructions below to build and run the application on your local machine. 
